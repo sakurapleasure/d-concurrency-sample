@@ -1,0 +1,13 @@
+{
+	"name": "d-concurrency-sample",
+	"authors": [
+		"Reiju"
+	],
+	"description": "An application with std.concurrency",
+	"copyright": "Copyright © 2017, Reiju",
+	"license": "MIT",
+	"targetType": "executable",
+	"dependencies": {
+		"moeimg-d": "~>1.1.0"
+	}
+}
