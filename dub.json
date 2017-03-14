@@ -8,6 +8,7 @@
 	"license": "MIT",
 	"targetType": "executable",
 	"dependencies": {
-		"moeimg-d": "~>1.1.0"
+		"moeimg-d": "~>1.1.1",
+		"requests": "~>0.4.0"
 	}
 }

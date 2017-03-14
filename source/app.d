@@ -1,13 +1,15 @@
 import std.stdio;
 import std.concurrency;
+import std.parallelism : parallel;
 import moeimgd.moeimg;
 import std.file;
 import std.string;
-import std.net.curl;
+import requests;
 
 void main(string[] args) {
+	immutable string[] available_opts = ["normal", "concurrency", "parallelism"];
 	if(args.length == 1) {
-		writeln("needed 1 argument: normal or concurrency");
+		writeln("needed 1 argument: ", available_opts);
 		return;
 	}
 	auto articles = getArticles(1);
@@ -23,8 +25,13 @@ void main(string[] args) {
 				spawn(&downloadImg, article, "imgs-concurrency"); // 並列
 			}
 			break;
+		case "parallelism":
+			foreach(article; articles.parallel()) {
+				downloadImg(article, "imgs-parallel");
+			}
+			break;
 		default:
-			writeln("needed \"normal\" or \"concurrency\"");
+			writeln("needed ", available_opts);
 	}
 }
 
@@ -37,7 +44,9 @@ void downloadImg(Article article, string dir) {
 	foreach(image; images) {
 		auto file = format("%s/%s/%s", dir, article.name, image.filename);
 		if(!exists(file)) {
-			download(image.getURL(), file);
+			auto content = getContent(image.getURL());
+			auto f = File(file, "wb");
+			f.rawWrite(content.data);
 			writeln("done: ", image.filename);
 		} else {
 			writeln("exists: ", image.filename);

@@ -5,5 +5,5 @@ __dummy.html
 *.obj
 __test__*__
 imgs*
-thread
 dub.selections.json
+d-concurrency-sample
