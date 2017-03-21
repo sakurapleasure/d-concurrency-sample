@@ -1,7 +1,7 @@
 import std.stdio;
 import std.concurrency;
 import std.parallelism : parallel;
-import moeimgd.moeimg;
+import moeimgd;
 import std.file;
 import std.string;
 import requests;
